@@ -140,6 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )
           ),
+          Spacer(),
           Expanded(child: FloatingActionButton(
               onPressed: _incrementCounter,
               tooltip: 'Increment',
