@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )
           ),
-          Spacer(),
+          const Spacer(flex: 2),
           Expanded(child: FloatingActionButton(
               onPressed: _incrementCounter,
               tooltip: 'Increment',
