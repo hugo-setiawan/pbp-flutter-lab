@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Expanded(
             child: Visibility(
-              visible: (_counter > 0),
+              visible: (_counter != 0),
               maintainSize: true,
               maintainAnimation: true,
               maintainState: true,
