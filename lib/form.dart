@@ -1,6 +1,7 @@
-import 'package:counter_7/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:counter_7/main.dart';
+import 'package:counter_7/show_budget.dart';
 
 class BudgetFormPage extends StatefulWidget {
   const BudgetFormPage({super.key});
@@ -26,6 +27,45 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Form Budget'),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            // Menambahkan clickable menu
+            ListTile(
+              title: const Text('counter_7'),
+              onTap: () {
+                // Route menu ke halaman utama
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyHomePage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Tambah Budget'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BudgetFormPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Data Budget'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  // TODO add and route data page
+                  MaterialPageRoute(builder: (context) => const BudgetShowPage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Form(
         key: _formKey,

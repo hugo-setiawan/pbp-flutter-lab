@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:counter_7/form.dart';
+import 'package:counter_7/show_budget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -103,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('counter_7'),
               onTap: () {
                 // Route menu ke halaman utama
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MyHomePage()),
                 );
@@ -127,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushReplacement(
                   context,
                   // TODO add and route data page
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
+                  MaterialPageRoute(builder: (context) => const BudgetShowPage()),
                 );
               },
             ),
