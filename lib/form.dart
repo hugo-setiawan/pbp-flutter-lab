@@ -17,7 +17,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
 
   // var untuk menyimpan keperluan form
   String _judulBudget = "";
-  int _nominalBudget = 0; // TODO number not saved yet
+  int _nominalBudget = 0;
   final List<String> _daftarJenisPengeluaranBudget = <String>[
     "Pemasukan",
     "Pengeluaran",
@@ -129,7 +129,11 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      // dikosongkan dengan sengaja, perlu validasi dgn validator
+                      int? newNominal = int.tryParse(value!);
+
+                      if (!(newNominal == null)) {
+                        _nominalBudget = newNominal;
+                      }
                     });
                   },
                   onSaved: (String? value) {
@@ -142,9 +146,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                       return 'Nominal tidak boleh kosong!';
                     }
 
-                    try {
-                      int.parse(value);
-                    } on FormatException {
+                    if (int.tryParse(value) == null) {
                       return 'Nominal bukan berupa angka valid!';
                     }
 
