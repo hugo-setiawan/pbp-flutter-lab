@@ -200,11 +200,16 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                       _formKey.currentState!.reset();
                     }
                   },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  ),
                   child: const Text(
                     "Simpan",
-                    style: TextStyle(color: Colors.black),
-                  ))
-            ]),
+                    style: TextStyle(color: Colors.white),
+                  )
+                )
+              ]
+            ),
           ),
         ),
       ),
