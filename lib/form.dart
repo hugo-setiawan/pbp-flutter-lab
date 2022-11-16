@@ -28,13 +28,17 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
   String? _jenisBudget;
 
   // fungsi untuk menyimpan budget ke Model, akan dipanggil saat simpan ditekan
-  void saveBudget() {
+  bool saveBudget() {
     if (_formKey.currentState!.validate()) {
       final Budget newBudget =
           Budget(_judulBudget!, _nominalBudget!, _jenisBudget!);
 
       Provider.of<BudgetModel>(context, listen: false).add(newBudget);
+
+      return true;
     }
+
+    return false;
   }
 
   @override
@@ -154,7 +158,47 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
               ),
               TextButton(
                   onPressed: () {
-                    saveBudget();
+                    // saveBudget return true <-> data berhasil tersimpan
+                    if (saveBudget()) {
+                      showDialog(
+                          context: context,
+                          builder: ((context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              elevation: 15,
+                              child: ListView(
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  const Center(
+                                    child: Text(
+                                      "Data budget berhasil disimpan!",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30),
+                                  TextButton(
+                                    onPressed: () {
+                                      // pop untuk menutup dialog box
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'OK',
+                                      style: TextStyle(color: Colors.blue),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        )
+                      );
+                      _formKey.currentState!.reset();
+                    }
                   },
                   child: const Text(
                     "Simpan",
