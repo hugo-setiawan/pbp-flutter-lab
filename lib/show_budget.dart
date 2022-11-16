@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:counter_7/main.dart';
 import 'package:counter_7/form.dart';
+import 'package:counter_7/drawer.dart';
 import 'package:counter_7/models.dart';
 
 class BudgetShowPage extends StatefulWidget {
@@ -20,45 +21,7 @@ class _BudgetShowPageState extends State<BudgetShowPage> {
       appBar: AppBar(
         title: const Text('Data Budget'),
       ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            // Menambahkan clickable menu
-            ListTile(
-              title: const Text('counter_7'),
-              onTap: () {
-                // Route menu ke halaman utama
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Tambah Budget'),
-              onTap: () {
-                // Route menu ke halaman form
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BudgetFormPage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Data Budget'),
-              onTap: () {
-                // Route menu ke halaman form
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BudgetShowPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const MyDrawer(),
 
       // Body data page mengambil (consume) data BudgetModel
       body: Consumer<BudgetModel>(
