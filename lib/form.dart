@@ -16,8 +16,8 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
   final _formKey = GlobalKey<FormState>();
 
   // var untuk menyimpan keperluan form
-  String _judulBudget = "";
-  int _nominalBudget = 0;
+  String? _judulBudget;
+  int? _nominalBudget;
   final List<String> _daftarJenisPengeluaranBudget = <String>[
     "Pemasukan",
     "Pengeluaran",
@@ -30,7 +30,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
   void saveBudget() {
     if (_formKey.currentState!.validate()) {
       final Budget newBudget =
-          Budget(_judulBudget, _nominalBudget, _jenisBudget!);
+          Budget(_judulBudget!, _nominalBudget!, _jenisBudget!);
 
       Provider.of<BudgetModel>(context, listen: false).add(newBudget);
     }
