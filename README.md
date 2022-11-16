@@ -111,7 +111,7 @@ Selain *widget* yang sudah digunakan pada [tugas sebelumnya](#tugas-individu-7-p
   - `DropdownButtonFormField` <br>
   *Widget* yang digunakan untuk membuat suatu *dropdown box* yang berfungsi sebagai input dari pengguna. *Item* untuk *dropdown box* dibuat dengan *widget* `DropdownMenuItem`. 
 - `Consumer<T>` <br>
-*Widget* yang digunakan untuk mengambil `Provider<T>`, tepatnya `Provider<BudgetModel>` dan dipass kepada *builder*, agar nilai-nilai yang disediakan pada *provider* dapat digunakan dalam pembuatan *widget*. (tepatnya untuk membuat *card* dengan isian *budget* pada halaman **Data Budget**).
+*Widget* yang digunakan untuk menerima data yang ada pada `Provider<T>`, tepatnya `Provider<BudgetModel>` dan dipass kepada *builder*, agar nilai-nilai yang disediakan pada *provider* dapat digunakan dalam pembuatan *widget*. (tepatnya untuk membuat *card* dengan isian *budget* pada halaman **Data Budget**).
 
 ## Sebutkan jenis-jenis event yang ada pada Flutter.
 Berikut adalah beberapa dari *event* yang ada pada Flutter:
