@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
 import 'package:counter_7/form.dart';
 import 'package:counter_7/show_budget.dart';
+import 'package:counter_7/models.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => BudgetModel(),
+      child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -127,7 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Route menu ke halaman form
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const BudgetShowPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const BudgetShowPage()),
                 );
               },
             ),

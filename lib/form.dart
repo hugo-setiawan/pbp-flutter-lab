@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:counter_7/main.dart';
 import 'package:counter_7/show_budget.dart';
+import 'package:counter_7/models.dart';
 
 class BudgetFormPage extends StatefulWidget {
   const BudgetFormPage({super.key});
@@ -21,6 +23,16 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
     "Pengeluaran",
   ];
   String _jenisPengeluaranBudget = "Pemasukan";
+
+  // fungsi untuk menyimpan budget ke Model, akan dipanggil saat simpan ditekan
+  void saveBudget() {
+    if (_formKey.currentState!.validate()) {
+      final Budget newBudget = Budget(
+          _judulBudget, _nominalBudget, _jenisPengeluaranBudget);
+
+      Provider.of<BudgetModel>(context, listen: false).add(newBudget);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +71,8 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                 // Route menu ke halaman form
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const BudgetShowPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const BudgetShowPage()),
                 );
               },
             ),
@@ -137,7 +150,6 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownButtonFormField(
@@ -146,10 +158,10 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                       hintText: "Pilih Jenis",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
-                      )
-                    ),
+                      )),
                   // value: _jenisPengeluaranBudget,
-                  items: _daftarJenisPengeluaranBudget.map<DropdownMenuItem<String>>((String item) {
+                  items: _daftarJenisPengeluaranBudget
+                      .map<DropdownMenuItem<String>>((String item) {
                     return DropdownMenuItem<String>(
                       value: item,
                       child: Text(item),
@@ -166,12 +178,13 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                 padding: EdgeInsets.only(top: 20, bottom: 20),
               ),
               TextButton(
-                onPressed: () {}, // TODO save data on press, handling data model etc.
-                child: const Text(
-                  "Simpan",
-                  style: TextStyle(color: Colors.black),
-                )
-              )
+                  onPressed: () {
+                    saveBudget();
+                  },
+                  child: const Text(
+                    "Simpan",
+                    style: TextStyle(color: Colors.black),
+                  ))
             ]),
           ),
         ),
