@@ -17,18 +17,20 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
 
   // var untuk menyimpan keperluan form
   String _judulBudget = "";
-  int _nominalBudget = 0;
+  int _nominalBudget = 0; // TODO number not saved yet
   final List<String> _daftarJenisPengeluaranBudget = <String>[
     "Pemasukan",
     "Pengeluaran",
   ];
-  String _jenisPengeluaranBudget = "Pemasukan";
+
+  // Nullable, null <-> jika blm ada jenis yg dipilih
+  String? _jenisBudget;
 
   // fungsi untuk menyimpan budget ke Model, akan dipanggil saat simpan ditekan
   void saveBudget() {
     if (_formKey.currentState!.validate()) {
-      final Budget newBudget = Budget(
-          _judulBudget, _nominalBudget, _jenisPengeluaranBudget);
+      final Budget newBudget =
+          Budget(_judulBudget, _nominalBudget, _jenisBudget!);
 
       Provider.of<BudgetModel>(context, listen: false).add(newBudget);
     }
@@ -169,9 +171,17 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      _jenisPengeluaranBudget = newValue!;
+                      _jenisBudget = newValue!;
                     });
-                  }, // TODO validasi ada opsi dipilih
+                  },
+                  validator: (value) {
+                    // value null <-> blm ada yg dipilih
+                    if (value == null) {
+                      return "Jenis tidak boleh kosong!";
+                    }
+
+                    return null;
+                  },
                 ),
               ),
               const Padding(
