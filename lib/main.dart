@@ -134,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
               maintainAnimation: true,
               maintainState: true,
               child: FloatingActionButton(
+                heroTag: 'btn-minus',
                 onPressed: _decrementCounter,
                 tooltip: 'Decrement',
                 child: const Icon(Icons.remove),
@@ -142,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           const Spacer(flex: 2),
           Expanded(child: FloatingActionButton(
+              heroTag: 'btn-plus',
               onPressed: _incrementCounter,
               tooltip: 'Increment',
               child: const Icon(Icons.add),
