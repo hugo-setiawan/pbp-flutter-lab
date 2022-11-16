@@ -14,7 +14,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
 
   // var untuk menyimpan keperluan form
   String _judulBudget = "";
-  double _nominalBudget = 0;
+  int _nominalBudget = 0;
   final List<String> _daftarJenisPengeluaranBudget = <String>[
     "Pemasukan",
     "Pengeluaran",
@@ -65,8 +65,8 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                 child: TextFormField(
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    // regex memvalidasi hanya ada digit dan decimal point di input nominal
-                    FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                    // hanya boleh memasukkan angka
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   decoration: InputDecoration(
                     labelText: "Nominal Budget",
@@ -80,7 +80,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                   },
                   onSaved: (String? value) {
                     setState(() {
-                      _nominalBudget = double.parse(value!);
+                      _nominalBudget = int.parse(value!);
                     });
                   },
                   validator: (String? value) {
@@ -89,7 +89,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                     }
 
                     try {
-                      double.parse(value);
+                      int.parse(value);
                     } on FormatException {
                       return 'Nominal bukan berupa angka valid!';
                     }
