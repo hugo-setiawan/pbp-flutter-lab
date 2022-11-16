@@ -36,15 +36,18 @@ class _BudgetShowPageState extends State<BudgetShowPage> {
                   side: BorderSide(
                     color: Theme.of(context).colorScheme.outline,
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(eachBudget.judulBudget),
-                      const SizedBox(height: 8),
+                      Text(
+                        eachBudget.judulBudget, 
+                        style: const TextStyle(fontSize: 22),
+                      ),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
