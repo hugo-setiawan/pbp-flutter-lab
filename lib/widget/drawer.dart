@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:counter_7/main.dart';
-import 'package:counter_7/form.dart';
-import 'package:counter_7/show_budget.dart';
+import 'package:counter_7/page/form.dart';
+import 'package:counter_7/page/show_budget.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
