@@ -71,30 +71,49 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                       ));
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 10),
                       padding: const EdgeInsets.all(15.0),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            // warna berubah sesuai status watched
-                            color: snapshot.data![index].fields.watched ? Colors.green : Colors.red,
-                            blurRadius: 5
-                          )
-                        ]
-                      ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                          boxShadow: [
+                            BoxShadow(
+                                // warna berubah sesuai status watched
+                                color: snapshot.data![index].fields.watched
+                                    ? Colors.green
+                                    : Colors.red,
+                                blurRadius: 5)
+                          ]),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            snapshot.data![index].fields.title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ), // TODO add checkbox watched status
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
+                                  snapshot.data![index].fields.title,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 30,
+                                // TODO watchednya berubah sendiri??? (kyknya gara2 snapshot)
+                                child: CheckboxListTile(
+                                  value: snapshot.data![index].fields.watched,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      snapshot.data![index].fields.watched = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -103,6 +122,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
               );
             }
           },
-        ));
+        )
+      );
   }
 }
