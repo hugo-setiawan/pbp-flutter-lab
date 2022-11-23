@@ -1,5 +1,6 @@
 import 'package:counter_7/widget/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:counter_7/model/mywatchlist_model.dart';
 
@@ -12,6 +13,8 @@ class WatchlistDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const double largeHeight = 20;
     const double smallHeight = 4;
+
+    final DateFormat dateFormat = DateFormat('LLL dd, yyyy');
 
     return Scaffold(
         appBar: AppBar(
@@ -49,7 +52,7 @@ class WatchlistDetailPage extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Expanded(
                     child: Text(
-                      watchlist.fields.releaseDate.toString(),
+                      dateFormat.format(watchlist.fields.releaseDate),
                       style: const TextStyle(fontSize: 16),
                     ),
                   )
@@ -128,11 +131,9 @@ class WatchlistDetailPage extends StatelessWidget {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  )
-                )
+                  ))
             ],
           ),
-        )
-      );
+        ));
   }
 }
