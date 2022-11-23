@@ -156,27 +156,54 @@ Halaman data *budget* dibuat pada file `show_budget.dart`. Bodi pada halaman ini
 # Tugas Individu 9 PBP (*MyWatchlist | Integrasi Web Service pada Flutter*)
 **Hugo Sulaiman Setiawan (2106707315)**
 
-## Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
-**TODO**
+## Apakah bisa kita melakukan pengambilan data JSON tanpa membuat *model* terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+Bisa saja dilakukan *fetch* JSON secara langsung untuk kemudian di-*parse* secara manual, tanpa melalui *model*, baik menggunakan *class* atau tidak (menyimpan *fields* secara manual). Namun, tentu akan mengurangi keterbacaan, membuka peluang yang lebih besar untuk kesalahan dalam *parsing*, dan *in general* bukan merupakan *best practice* yang sebaiknya diterapkan.
 
 ## Sebutkan *widget* apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
-**TODO**
+Selain *widget* yang sudah digunakan pada [tugas 7](#tugas-individu-7-pbp-counter_7) dan [tugas 8](#tugas-individu-8-pbp-budget), berikut adalah beberapa *widget* yang baru digunakan pada pembuatan tugas kali ini:
+- `FutureBuilder` <br>
+*Widget* yang akan mengkonstruksi serta meng-*update* *widget*-*widget* berdasarkan *snapshot* terbaru dari suatu `Future`.
+- `GestureDetector` <br>
+Mendeteksi gestur yang dilakukan padanya (seperti misalnya *tap* yang dilakukan padanya), dan akan memanggil fungsi *callback* yang sesuai dengan gestur yang terjadi. `GestureDetector` tidak memiliki tampilan apapun, sehingga ia memiliki `child` untuk tampilannya (dalam tugas kali ini, `child` berupa `Container` yang mencakup judul dan *checkbox* per `Watchlist`). 
 
-## Jelaskan mekanisme pengambilan data dari json hingga dapat ditampilkan pada Flutter.
-**TODO**
+## Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter
+1. *Fetch* data pada server dengan `http.get`, menerima data berupa *response*.
+2. *Deserialize response* sehingga menjadi suatu *JSON object*.
+3. Setiap anggota *JSON object* yang telah dibuat pada langkah 2 akan dibuat objek `Watchlist`-nya dengan `Watchlist.fromJson`. 
+4. Objek `Watchlist` dari anggota *JSON object* yang telah berhasil di-*parse* akan ditambahkan ke `listMyWatchlist`.
+5. Setelah semua isi *response* di-*parse* menjadi `Watchlist` yang ada pada `listMyWatchlist`, *list* tersebut akan diserahkan kepada `FutureBuilder` untuk kemudian dikonstruksi *widget*-*widget* yang sesuai.
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
 ### Menambahkan tombol navigasi pada drawer/hamburger untuk ke halaman `myWatchlist`
-**TODO**
+Cukup menambahkan `ListTile` pada `MyDrawer` yang sudah di-*refactor* sebelumnya pada file `widget/drawer.dart` seperti berikut:
+```dart
+ListTile(
+  title: const Text('My Watch List'),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MyWatchlistPage()),
+    );
+  },
+),
+```
 
 ### Membuat satu file dart yang berisi model `watchlist`
-**TODO**
+Saya membuat file `model/mywatchlist_model.dart` yang berisikan model `watchlist` yang di-*generate* dengan [Quicktype](https://app.quicktype.io/) (seperti pada tutorial).
 
-### Menambahkan halaman `mywatchlist` yang berisi semua watch list yang ada pada endpoint JSON di Django yang telah di-*deploy* ke Heroku sebelumnya [(pada Tugas 3)](https://github.com/hugo-setiawan/pbp-tugas/tree/main/mywatchlist)
-**TODO**
+### Menambahkan *dependencies* yang diperlukan
+Untuk tugas kali ini, saya memanfaatkan 2 *package*, yakni *http* (untuk mengambil data dari *server* dengan `http.get`) dan *intl* (untuk menyajikan tanggal dalam bentuk yang lebih *human-readable*). Kedua *package* tersebut dapat ditambahkan sebagai *dependency* dengan perintah `flutter pub add <nama_package>`.
+
+### Membuat fungsi untuk mengambil data yang ada pada endpoint JSON di Django yang telah di-*deploy* ke Heroku sebelumnya [(pada Tugas 3)](https://github.com/hugo-setiawan/pbp-tugas/tree/main/mywatchlist) (BONUS: *refactored* ke file terpisah)
+Saya mengimplementasikan fungsi `fetchMyWatchlist(urlString)` pada file `data/mywatchlist_data.dart`. Fungsi tersebut menerima parameter berupa string URL yang bertujuan kepada *endpoint* JSON untuk Tugas 3 (*mywatchlist*) yang ada pada Heroku. Fungsi tersebut mengembalikan `Future<List<Watchlist>>`, dimana `List<Watchlist>` dapat diakses setelah data sudah diterima dan di-*parse*.
+
+### Menambahkan halaman `mywatchlist` yang berisi semua watch list yang 
+Halaman `MyWatchlistPage` dibuat pada file `page/mywatchlist.dart` dengan memanfaatkan `FutureBuilder`. `FutureBuilder` meng-*handle* kasus di mana data `watchlist` masih belum diterima (masih menunggu), data `watchlist` kosong, dan data `watchlist` ada. 
+
+Jika data `watchlist` sudah ada, maka akan disusun dengan `ListView.builder`, di mana setiap elemen `ListView` merupakan `GestureDetector` yang berisikan teks nama film pada `watchlist` tersebut serta *checkbox* yang mendandakan status `watched` serta warna *shadow* yang sesuai status `watched`. Jika terjadi sentuhan pada *checkbox*, maka status `watched` untuk `watchlist` tersebut akan berubah (BONUS). Selain itu, jika `GestureDetector` akan mendeteksi sentuhan pada dirinya, maka ia akan mem-*push* route ke halaman detail untuk `watchlist` tersebut. 
 
 ### Menambahkan halaman detail untuk setiap `watchlist` yang ada pada daftar tersebut beserta tombol untuk kembali ke `myWatchlist`
-**TODO**
+Halaman `WatchlistDetailPage` dibuat pada file `page/watchlist_detail.dart` serta diimplementasikan sebagai suatu `StatelessWidget` yang menerima satu parameter saat diinisialisasikan, yakni *instance* `Watchlist` yang hendak dilihat detailnya. Isi dari halaman ini utamanya berisi `Column`, `Row`, `SizedBox`, dan `Expanded` untuk mengatur tata letak, serta `Text` untuk menampilkan *field* yang ada pada `Watchlist`. Selain itu, ditambahkan suatu `TextButton` yang ketika ditekan, akan menge-*pop* route yang ada pada `Navigator` sehingga akan kembali ke halaman sebelumnya.
 
 
 #### [Back to top](#tugas-individu-7-pbp-counter_7)
