@@ -14,6 +14,14 @@ class MyWatchlistPage extends StatefulWidget {
 }
 
 class _MyWatchlistPageState extends State<MyWatchlistPage> {
+  late Future<List<Watchlist>> savedWatchlist;
+
+  @override
+  void initState() {
+    super.initState();
+    savedWatchlist = fetchMyWatchlist();
+  }
+
   Future<List<Watchlist>> fetchMyWatchlist() async {
     var url =
         Uri.parse('https://pbp-tugas-hugo.herokuapp.com/mywatchlist/json/');
@@ -43,7 +51,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
         ),
         drawer: const MyDrawer(),
         body: FutureBuilder(
-          future: fetchMyWatchlist(),
+          future: savedWatchlist,
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return const Center(child: CircularProgressIndicator());
@@ -102,7 +110,6 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                               ),
                               SizedBox(
                                 width: 30,
-                                // TODO watchednya berubah sendiri??? (kyknya gara2 snapshot)
                                 child: CheckboxListTile(
                                   value: snapshot.data![index].fields.watched,
                                   onChanged: (value) {
@@ -122,7 +129,6 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
               );
             }
           },
-        )
-      );
+        ));
   }
 }
