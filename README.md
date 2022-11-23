@@ -2,6 +2,7 @@
 **Hugo Sulaiman Setiawan (2106707315)**
 
 ### [Readme untuk Tugas Individu 8 PBP](#tugas-individu-8-pbp-budget)
+### [Readme untuk Tugas Individu 9 PBP](#tugas-individu-9-pbp-mywatchlist--integrasi-web-service-pada-flutter)
 
 ## Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget dan jelaskan perbedaan dari keduanya.      
 *Stateless widget* merupakan *widget* yang tidak memiliki *state* atau kondisi tertentu serta tampilannya tidak dipengaruhi oleh *state* atau kondisi yang dimilikinya. Misalnya, sebuah *widget* teks yang menampilkan teks statik dapat tergolong *stateless* karena tampilan dari *widget* tersebut (teks) tidak tergantung pada *state*-nya. Tampilan dari *stateless widget* hanya bisa diubah melalui *parent*-nya.
@@ -85,6 +86,8 @@ Row(
   ],
 ),
 ```
+#### [Back to top](#tugas-individu-7-pbp-counter_7)
+
 <hr>
 
 # Tugas Individu 8 PBP (*Budget*)
@@ -146,5 +149,36 @@ Provider.of<BudgetModel>(context, listen: false).add(newBudget);
 
 ### Menambahkan halaman data *budget*
 Halaman data *budget* dibuat pada file `show_budget.dart`. Bodi pada halaman ini pada dasarnya akan dibangun dengan menggunakan `Consumer<BudgetModel>`, yang *builder*-nya akan membuat suatu `ListView` yang mengandung `Card`-`Card` yang masing-masingnya menampilkan data dari satu *instance* `Budget` yang ada pada `BudgetModel`.
+
+#### [Back to top](#tugas-individu-7-pbp-counter_7)
+<hr>
+
+# Tugas Individu 9 PBP (*MyWatchlist | Integrasi Web Service pada Flutter*)
+**Hugo Sulaiman Setiawan (2106707315)**
+
+## Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+**TODO**
+
+## Sebutkan *widget* apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+**TODO**
+
+## Jelaskan mekanisme pengambilan data dari json hingga dapat ditampilkan pada Flutter.
+**TODO**
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+### Menambahkan tombol navigasi pada drawer/hamburger untuk ke halaman `myWatchlist`
+**TODO**
+
+### Membuat satu file dart yang berisi model `watchlist`
+**TODO**
+
+### Menambahkan halaman `mywatchlist` yang berisi semua watch list yang ada pada endpoint JSON di Django yang telah di-*deploy* ke Heroku sebelumnya [(pada Tugas 3)](https://github.com/hugo-setiawan/pbp-tugas/tree/main/mywatchlist)
+**TODO**
+
+### Menambahkan halaman detail untuk setiap `watchlist` yang ada pada daftar tersebut beserta tombol untuk kembali ke `myWatchlist`
+**TODO**
+
+
+#### [Back to top](#tugas-individu-7-pbp-counter_7)
 
 <hr>
