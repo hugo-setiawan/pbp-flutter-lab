@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:counter_7/data/mywatchlist_data.dart';
 
 import 'package:counter_7/page/watchlist_detail.dart';
 import 'package:counter_7/widget/drawer.dart';
@@ -19,28 +18,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
   @override
   void initState() {
     super.initState();
-    savedWatchlist = fetchMyWatchlist();
-  }
-
-  Future<List<Watchlist>> fetchMyWatchlist() async {
-    var url =
-        Uri.parse('https://pbp-tugas-hugo.herokuapp.com/mywatchlist/json/');
-
-    var resp = await http.get(url, headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    });
-
-    var data = jsonDecode(utf8.decode(resp.bodyBytes));
-
-    List<Watchlist> listMyWatchlist = [];
-    for (var each in data) {
-      if (each != null) {
-        listMyWatchlist.add(Watchlist.fromJson(each));
-      }
-    }
-
-    return listMyWatchlist;
+    savedWatchlist = fetchMyWatchlist('https://pbp-tugas-hugo.herokuapp.com/mywatchlist/json/');
   }
 
   @override
